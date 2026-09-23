@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Volpine</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+
+    <header class="top-header">
+
+        <div class="brand">
+            <h1>VOLPINE</h1>
+            <p>organize your day.</p>
+        </div>
+
+        <button
+            id="profileButton"
+            class="profile-button"
+            type="button"
+        >
+            <div class="header-avatar">
+                <img
+                    id="headerAvatarImage"
+                    class="hidden"
+                    alt="Foto de perfil"
+                >
+
+                <span id="headerAvatarInitial">
+                    V
+                </span>
+            </div>
+
+            <div class="profile-header-info">
+                <strong id="headerProfileName">
+                    Visitante
+                </strong>
+
+                <small id="headerProfileUsername">
+                    Perfil local
+                </small>
+            </div>
+        </button>
+
+    </header>
+
+
+    <div class="app-layout">
+
+
+        <!-- MENU LATERAL -->
+
+        <aside class="sidebar">
+
+            <div>
+
+                <button
+                    id="navHome"
+                    class="nav-item active"
+                    type="button"
+                >
+                    <span>⌂</span>
+                    Início
+                </button>
+
+                <button
+                    id="navAgenda"
+                    class="nav-item"
+                    type="button"
+                >
+                    <span>▣</span>
+                    Agenda
+                </button>
+
+                <button
+                    id="navTasks"
+                    class="nav-item"
+                    type="button"
+                >
+                    <span>✓</span>
+                    Tarefas
+                </button>
+
+                <button
+                    id="navReminders"
+                    class="nav-item"
+                    type="button"
+                >
+                    <span>◇</span>
+                    Lembretes
+                </button>
+
+                <button
+                    id="calendarButton"
+                    class="nav-item"
+                    type="button"
+                >
+                    <span>▦</span>
+                    Calendário
+                </button>
+
+                <button
+                    id="settingsButton"
+                    class="nav-item"
+                    type="button"
+                >
+                    <span>⚙</span>
+                    Configurações
+                </button>
+
+            </div>
+
+
+            <div class="sidebar-footer">
+
+                <div class="sidebar-quote">
+
+                    <p>
+                        “Pequenos passos também
+                        te levam longe.”
+                    </p>
+
+                    <span>♡</span>
+
+                </div>
+
+                <small
+                    id="sidebarVersion"
+                    class="sidebar-version"
+                ></small>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CONTEÚDO PRINCIPAL -->
+
+<main class="main-content">
+
+    <!-- TOPO DA HOME -->
+
+    <div class="dashboard-intro">
+
+        <!-- BANNER -->
+
+        <section
+            id="welcomeCard"
+            class="welcome-card"
+        >
+
+            <img
+                id="bannerCurrent"
+                class="welcome-banner-image banner-visible"
+                src="assets/images/banner-light-morning.png"
+                alt="Banner Volpine"
+            >
+
+            <img
+                id="bannerNext"
+                class="welcome-banner-image"
+                alt=""
+                aria-hidden="true"
+            >
+
+        </section>
+
+
+        <!-- PAINEL DO DIA -->
+
+        <section
+            id="agendaSection"
+            class="day-overview"
+        >
+
+            <div class="overview-top">
+
+                <span class="agenda-label">
+                    HOJE
+                </span>
+
+                <h2>
+                    Sua agenda
+                </h2>
+
+                <p id="todayDate"></p>
+
+            </div>
+
+
+            <!-- FILTROS -->
+
+            <div class="filters">
+
+                <button
+                    class="filter-button active"
+                    data-filter="all"
+                    type="button"
+                >
+                    Todos
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-filter="task"
+                    type="button"
+                >
+                    Tarefas
+                </button>
+
+                <button
+                    class="filter-button"
+                    data-filter="reminder"
+                    type="button"
+                >
+                    Lembretes
+                </button>
+
+            </div>
+
+
+            <!-- NOVO ITEM -->
+
+            <button
+                id="openNewItem"
+                class="new-item-button"
+                type="button"
+            >
+                <span>+</span>
+                Novo item
+            </button>
+
+
+            <div class="overview-divider"></div>
+
+
+            <!-- INFORMAÇÕES RÁPIDAS -->
+
+            <div class="overview-mini-grid">
+
+                <!-- DATA -->
+
+                <div class="overview-mini-card">
+
+                    <span class="mini-label">
+                        DATA
+                    </span>
+
+                    <strong>
+                        Hoje
+                    </strong>
+
+                    <p id="sideDate"></p>
+
+                    <button
+                        id="sideCalendarButton"
+                        class="mini-link-button"
+                        type="button"
+                    >
+                        Abrir calendário
+                    </button>
+
+                </div>
+
+
+                <!-- PROGRESSO -->
+
+                <div
+                    id="progressCard"
+                    class="overview-mini-card"
+                >
+
+                    <span class="mini-label">
+                        PROGRESSO
+                    </span>
+
+                    <div class="mini-progress-heading">
+
+                        <strong>
+                            Tarefas
+                        </strong>
+
+                        <span id="progressPercent">
+                            0%
+                        </span>
+
+                    </div>
+
+                    <span
+                        id="progressText"
+                        class="mini-progress-text"
+                    >
+                        0 de 0 tarefas concluídas
+                    </span>
+
+                    <div class="progress-bar">
+
+                        <div
+                            id="progressFill"
+                            class="progress-fill"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+<p
+    id="progressMessage"
+    class="overview-progress-message"
+>
+    Nunca é tarde para começar.
+</p>
+
+        </section>
+
+    </div>
+
+
+    <!-- ==================================
+         ÁREA PRINCIPAL DA AGENDA
+    =================================== -->
+
+    <section class="agenda">
+
+        <div class="agenda-board-heading">
+
+            <div>
+
+                <span class="agenda-label">
+                    ORGANIZE SEU DIA
+                </span>
+
+                <h2>
+                    Seus itens
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <p
+            id="emptyMessage"
+            class="empty-message"
+        >
+            Nenhum item adicionado ainda.
+        </p>
+
+
+        <ul id="itemList"></ul>
+
+    </section>
+
+</main>
+
+
+<!-- FECHA O APP-LAYOUT -->
+
+</div>
+
+    <!-- ==================================
+         MODAL NOVO ITEM
+    =================================== -->
+
+    <div
+        id="itemModal"
+        class="modal hidden"
+    >
+
+        <div class="modal-box item-modal-box">
+
+            <button
+                id="closeItemModal"
+                class="close-modal"
+                type="button"
+            >
+                ×
+            </button>
+
+
+            <div class="modal-heading">
+
+                <span class="modal-eyebrow">
+                    NOVO ITEM
+                </span>
+
+                <h2>O que vamos organizar?</h2>
+
+                <p>
+                    Escolha entre uma tarefa com prazo
+                    ou um lembrete para um horário específico.
+                </p>
+
+            </div>
+
+
+            <div class="item-type-selector">
+
+                <button
+                    id="typeTaskButton"
+                    class="type-option active"
+                    type="button"
+                >
+                    <strong>Tarefa</strong>
+
+                    <small>
+                        Início + prazo final
+                    </small>
+                </button>
+
+
+                <button
+                    id="typeReminderButton"
+                    class="type-option"
+                    type="button"
+                >
+                    <strong>Lembrete</strong>
+
+                    <small>
+                        Um aviso em determinado horário
+                    </small>
+                </button>
+
+            </div>
+
+
+            <form id="itemForm">
+
+                <div class="form-group">
+
+                    <label for="itemTitle">
+                        Título
+                    </label>
+
+                    <input
+                        id="itemTitle"
+                        type="text"
+                        placeholder="Ex: Finalizar projeto Volpine"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div
+                    id="taskFields"
+                    class="date-fields"
+                >
+
+                    <div class="form-group">
+
+                        <label for="taskStart">
+                            Início
+                        </label>
+
+                        <input
+                            id="taskStart"
+                            type="datetime-local"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="taskDeadline">
+                            Prazo final
+                        </label>
+
+                        <input
+                            id="taskDeadline"
+                            type="datetime-local"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="reminderFields"
+                    class="hidden"
+                >
+
+                    <div class="form-group">
+
+                        <label for="reminderDate">
+                            Data e horário
+                        </label>
+
+                        <input
+                            id="reminderDate"
+                            type="datetime-local"
+                        >
+
+                        <small class="field-help">
+                            O lembrete aparecerá na agenda e no calendário.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    id="submitItemButton"
+                    class="add-button"
+                    type="submit"
+                >
+                    Criar tarefa
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================
+         CALENDÁRIO
+    =================================== -->
+
+    <div
+        id="calendarModal"
+        class="calendar-modal hidden"
+    >
+
+        <div class="calendar-box">
+
+            <button
+                id="closeCalendar"
+                class="close-calendar"
+                type="button"
+            >
+                ×
+            </button>
+
+
+            <div class="calendar-header">
+
+                <button
+                    id="prevMonth"
+                    type="button"
+                >
+                    ‹
+                </button>
+
+                <h2 id="calendarTitle"></h2>
+
+                <button
+                    id="nextMonth"
+                    type="button"
+                >
+                    ›
+                </button>
+
+            </div>
+
+
+            <div class="calendar-weekdays">
+
+                <span>Dom</span>
+                <span>Seg</span>
+                <span>Ter</span>
+                <span>Qua</span>
+                <span>Qui</span>
+                <span>Sex</span>
+                <span>Sáb</span>
+
+            </div>
+
+
+            <div
+                id="calendarGrid"
+                class="calendar-grid"
+            ></div>
+
+
+            <div class="day-details">
+
+                <h3 id="selectedDayTitle">
+                    Selecione um dia
+                </h3>
+
+                <div id="selectedDayItems">
+
+                    <p class="day-placeholder">
+                        Clique em uma data para visualizar os itens.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================
+         CONFIGURAÇÕES
+    =================================== -->
+
+    <div
+        id="settingsModal"
+        class="modal hidden"
+    >
+
+        <div class="settings-modal-box">
+
+            <button
+                id="closeSettings"
+                class="close-modal"
+                type="button"
+            >
+                ×
+            </button>
+
+
+            <div class="settings-title">
+
+                <span class="modal-eyebrow">
+                    VOLPINE
+                </span>
+
+                <h2>Configurações</h2>
+
+            </div>
+
+
+            <div class="settings-layout">
+
+
+                <!-- MENU CONFIGURAÇÕES -->
+
+                <nav class="settings-tabs">
+
+                    <button
+                        class="settings-tab active"
+                        data-settings="profile"
+                        type="button"
+                    >
+                        Perfil
+                    </button>
+
+                    <button
+                        class="settings-tab"
+                        data-settings="appearance"
+                        type="button"
+                    >
+                        Aparência
+                    </button>
+
+                    <button
+                        class="settings-tab"
+                        data-settings="account"
+                        type="button"
+                    >
+                        Conta
+                    </button>
+
+                    <button
+                        class="settings-tab"
+                        data-settings="about"
+                        type="button"
+                    >
+                        Sobre
+                    </button>
+
+                </nav>
+
+
+                <!-- CONTEÚDO -->
+
+                <div class="settings-content">
+
+
+                    <!-- PERFIL -->
+
+                    <section
+                        id="settings-profile"
+                        class="settings-panel"
+                    >
+
+                        <h3>Seu perfil</h3>
+
+                        <p class="settings-description">
+                            Estas informações aparecerão dentro do Volpine.
+                        </p>
+
+
+                        <div class="profile-editor">
+
+                            <div class="profile-avatar-large">
+
+                                <img
+                                    id="profileAvatarImage"
+                                    class="hidden"
+                                    alt="Foto de perfil"
+                                >
+
+                                <span id="profileAvatarInitial">
+                                    V
+                                </span>
+
+                            </div>
+
+
+                            <div class="avatar-actions">
+
+                                <label
+                                    for="profilePhotoInput"
+                                    class="secondary-button"
+                                >
+                                    Escolher foto
+                                </label>
+
+                                <input
+                                    id="profilePhotoInput"
+                                    type="file"
+                                    accept="image/*"
+                                    hidden
+                                >
+
+                                <button
+                                    id="removeProfilePhoto"
+                                    class="text-button"
+                                    type="button"
+                                >
+                                    Remover foto
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="settings-form-group">
+
+                            <label for="profileName">
+                                Nome
+                            </label>
+
+                            <input
+                                id="profileName"
+                                type="text"
+                                placeholder="Seu nome"
+                            >
+
+                        </div>
+
+
+                        <div class="settings-form-group">
+
+                            <label for="profileUsername">
+                                Nome de usuário
+                            </label>
+
+                            <div class="username-input">
+                                <span>@</span>
+
+                                <input
+                                    id="profileUsername"
+                                    type="text"
+                                    placeholder="seuusuario"
+                                >
+                            </div>
+
+                        </div>
+
+
+                        <div class="settings-form-group">
+
+                            <label>E-mail</label>
+
+                            <div class="readonly-field">
+                                <span id="profileEmail">
+                                    Nenhuma conta conectada
+                                </span>
+
+                                <small>
+                                    será preenchido após o login
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            id="saveProfile"
+                            class="primary-button"
+                            type="button"
+                        >
+                            Salvar perfil
+                        </button>
+
+                    </section>
+
+
+                    <!-- APARÊNCIA -->
+
+                    <section
+                        id="settings-appearance"
+                        class="settings-panel hidden"
+                    >
+
+                        <h3>Aparência</h3>
+
+                        <p class="settings-description">
+                            Escolha como o Volpine deve aparecer para você.
+                        </p>
+
+
+                        <div class="settings-section">
+
+                            <h4>Tema</h4>
+
+                            <div class="theme-selector">
+
+                                <button
+                                    class="theme-option active"
+                                    data-theme="light"
+                                    type="button"
+                                >
+                                    ☀
+                                    <span>Claro</span>
+                                </button>
+
+                                <button
+                                    class="theme-option"
+                                    data-theme="dark"
+                                    type="button"
+                                >
+                                    ◐
+                                    <span>Escuro</span>
+                                </button>
+
+                                <button
+                                    class="theme-option"
+                                    data-theme="system"
+                                    type="button"
+                                >
+                                    ◑
+                                    <span>Sistema</span>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="settings-list">
+
+                            <label class="setting-item">
+
+                                <div>
+                                    <strong>
+                                        Banner de boas-vindas
+                                    </strong>
+
+                                    <small>
+                                        Mostrar o cartão “Bom dia!”.
+                                    </small>
+                                </div>
+
+                                <input
+                                    id="settingWelcome"
+                                    type="checkbox"
+                                    checked
+                                >
+
+                            </label>
+
+
+                            <label class="setting-item">
+
+                                <div>
+                                    <strong>
+                                        Animações
+                                    </strong>
+
+                                    <small>
+                                        Transições e comemoração ao concluir tudo.
+                                    </small>
+                                </div>
+
+                                <input
+                                    id="settingAnimations"
+                                    type="checkbox"
+                                    checked
+                                >
+
+                            </label>
+
+
+                            <label class="setting-item">
+
+                                <div>
+                                    <strong>
+                                        Modo compacto
+                                    </strong>
+
+                                    <small>
+                                        Reduzir o espaço dos cartões.
+                                    </small>
+                                </div>
+
+                                <input
+                                    id="settingCompact"
+                                    type="checkbox"
+                                >
+
+                            </label>
+
+                        </div>
+
+
+                        <button
+                            id="resetSettings"
+                            class="secondary-button"
+                            type="button"
+                        >
+                            Restaurar padrão
+                        </button>
+
+                    </section>
+
+
+                    <!-- CONTA -->
+
+                    <section
+                        id="settings-account"
+                        class="settings-panel hidden"
+                    >
+
+                        <h3>Conta</h3>
+
+                        <p class="settings-description">
+                            Gerencie sua sessão e as informações de acesso.
+                        </p>
+
+
+                        <div class="account-card">
+
+                            <div class="account-avatar">
+
+                                <img
+                                    id="accountAvatarImage"
+                                    class="hidden"
+                                    alt="Foto de perfil"
+                                >
+
+                                <span id="accountAvatarInitial">
+                                    V
+                                </span>
+
+                            </div>
+
+                            <div>
+                                <strong id="accountName">
+                                    Visitante
+                                </strong>
+
+                                <span id="accountUsername">
+                                    Perfil local
+                                </span>
+
+                                <small>
+                                    Nenhuma conta conectada
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="account-actions">
+
+                            <button
+                                id="changePasswordButton"
+                                class="account-action"
+                                type="button"
+                            >
+                                <div>
+                                    <strong>
+                                        Alterar senha
+                                    </strong>
+
+                                    <small>
+                                        Atualize sua senha de acesso.
+                                    </small>
+                                </div>
+
+                                <span>›</span>
+                            </button>
+
+
+                            <button
+                                id="switchAccountButton"
+                                class="account-action"
+                                type="button"
+                            >
+                                <div>
+                                    <strong>
+                                        Entrar com outra conta
+                                    </strong>
+
+                                    <small>
+                                        Trocar o usuário conectado.
+                                    </small>
+                                </div>
+
+                                <span>›</span>
+                            </button>
+
+
+                            <button
+                                id="logoutButton"
+                                class="account-action danger-action"
+                                type="button"
+                            >
+                                <div>
+                                    <strong>
+                                        Sair
+                                    </strong>
+
+                                    <small>
+                                        Encerrar esta sessão.
+                                    </small>
+                                </div>
+
+                                <span>›</span>
+                            </button>
+
+                        </div>
+
+
+                        <p class="auth-note">
+                            Essas opções serão ativadas quando conectarmos
+                            o sistema de login.
+                        </p>
+
+                    </section>
+
+
+                    <!-- SOBRE -->
+
+                    <section
+                        id="settings-about"
+                        class="settings-panel hidden"
+                    >
+
+                        <div class="about-volpine">
+
+                            <div class="about-logo">
+                                V
+                            </div>
+
+                            <h3>VOLPINE</h3>
+
+                            <p>
+                                organize your day.
+                            </p>
+
+                            <div class="version-card">
+
+                                <span>Versão</span>
+
+                                <strong id="settingsVersion"></strong>
+
+                            </div>
+
+                            <small>
+                                © 2026 Volpine
+                            </small>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONFIRMAR EXCLUSÃO -->
+
+    <div
+        id="deleteModal"
+        class="modal hidden"
+    >
+
+        <div class="modal-box confirm-box">
+
+            <div class="delete-symbol">
+                !
+            </div>
+
+            <h2>Confirmar exclusão</h2>
+
+            <p id="deleteMessage"></p>
+
+
+            <div class="confirm-actions">
+
+                <button
+                    id="cancelDelete"
+                    class="secondary-button"
+                    type="button"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    id="confirmDelete"
+                    class="danger-button"
+                    type="button"
+                >
+                    Excluir
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div
+        id="toast"
+        class="toast"
+        aria-live="polite"
+    ></div>
+
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
