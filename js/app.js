@@ -678,6 +678,8 @@ function applyTheme() {
                     settings.theme
             );
 
+            updateBanner();
+
         }
     );
 
