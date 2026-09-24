@@ -2351,7 +2351,7 @@ body.animations-off *::after {
     }
 
     .welcome-card {
-        padding: 25px;
+        padding: 0;
     }
 
     .banner-fox {
