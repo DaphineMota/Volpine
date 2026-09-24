@@ -3210,3 +3210,13 @@ body.theme-dark .welcome-card::after {
         inset 0 0 40px 12px rgba(200, 230, 255, 0.28),
         inset 0 0 80px 18px rgba(90, 145, 255, 0.16);
 }
+
+@media (max-width: 750px) {
+
+    body.theme-dark .welcome-card::after {
+        box-shadow:
+            inset 0 0 22px 6px rgba(200, 230, 255, 0.20),
+            inset 0 0 40px 8px rgba(90, 145, 255, 0.10);
+    }
+
+}
