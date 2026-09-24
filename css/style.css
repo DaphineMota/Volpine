@@ -40,35 +40,41 @@
 ============================== */
 
 body.theme-dark {
-    --background: #171311;
-    --surface: #211b18;
-    --surface-soft: #2d2420;
-    --input: #29211e;
+    /* FUNDO GERAL */
+    --background: #0b111b;
 
-    --primary: #d77856;
-    --primary-hover: #e38967;
-    --primary-strong: #f1a287;
-    --primary-light: #643f32;
+    /* CARDS */
+    --surface: #121b29;
+    --surface-soft: #1a2738;
+    --input: #162131;
 
-    --pink-soft: #3b2929;
+    /* AZUIS PRINCIPAIS */
+    --primary: #78a7ff;
+    --primary-hover: #acdfff;
+    --primary-strong: #e8f6ff;
+    --primary-light: #29445f;
 
-    --text: #f5eeea;
-    --text-soft: #bcaea7;
+    /* CARDS SECUNDÁRIOS */
+    --pink-soft: #192b3d;
 
-    --border: #3d312c;
+    /* TEXTOS */
+    --text: #f6fbff;
+    --text-soft: #aebfd0;
 
-    --danger: #e07676;
-    --danger-soft: #3c2525;
+    /* BORDAS */
+    --border: #30445a;
 
-    --banner-a: #372720;
-    --banner-b: #442c23;
-    --banner-c: #5a3529;
+    /* PERIGO / EXCLUSÃO */
+    --danger: #e77d88;
+    --danger-soft: #39242c;
 
+    /* SOMBRAS */
     --shadow:
-        0 8px 25px rgba(0, 0, 0, 0.22);
+        0 8px 26px rgba(0, 0, 0, 0.32);
 
+    /* FUNDO DOS MODAIS */
     --modal-overlay:
-        rgba(0, 0, 0, 0.68);
+        rgba(3, 8, 15, 0.76);
 }
 
 
