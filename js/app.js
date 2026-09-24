@@ -85,6 +85,11 @@ const navReminders =
 const sidebarButtons =
     document.querySelectorAll(".nav-item");
 
+const mobileMenuButton =
+    document.getElementById("mobileMenuButton");
+
+const mobileNav =
+    document.getElementById("mobileNav");
 
 // =====================================
 // PROGRESSO
@@ -1770,6 +1775,25 @@ navHome.addEventListener(
     }
 );
 
+// =====================================
+// EVENTOS DO MENU MOBILE
+// =====================================
+
+mobileMenuButton.addEventListener(
+    "click",
+    function () {
+
+        mobileNav.classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+
+// =====================================
+// EVENTOS DA SIDEBAR
+// =====================================
 
 navAgenda.addEventListener(
     "click",
@@ -2447,6 +2471,33 @@ function updateProgress(
     progressFill.style.width =
         percentage + "%";
 
+        if (
+    percentage === 0
+) {
+
+    progressMessage.textContent =
+        "Nunca é tarde para começar.";
+
+} else if (
+    percentage < 50
+) {
+
+    progressMessage.textContent =
+        "Continue, foque, persista!";
+
+} else if (
+    percentage < 100
+) {
+
+    progressMessage.textContent =
+        "Você está no caminho certo!";
+
+} else {
+
+    progressMessage.textContent =
+        "Parabéns!";
+
+}
 
     if (
         allowCelebration &&
@@ -2497,14 +2548,30 @@ function celebrateCompletion() {
     );
 
 
-    const colors = [
-        "#bd5f40",
-        "#efc5b5",
-        "#f0b2a8",
-        "#d68b67",
-        "#94452f",
-        "#f3d7c9"
-    ];
+    const isDark =
+    document.body.classList.contains(
+        "theme-dark"
+    );
+
+
+const colors =
+    isDark
+        ? [
+            "#f6fbff",
+            "#d9efff",
+            "#8fcfff",
+            "#78a7ff",
+            "#4f7ee8",
+            "#b8dfff"
+        ]
+        : [
+            "#bd5f40",
+            "#efc5b5",
+            "#f0b2a8",
+            "#d68b67",
+            "#94452f",
+            "#f3d7c9"
+        ];
 
 
     for (
