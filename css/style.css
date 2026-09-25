@@ -3220,3 +3220,17 @@ body.theme-dark .welcome-card::after {
     }
 
 }
+
+.confirm-complete-button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    background-color: #79a8ff;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.confirm-complete-button:hover {
+    background-color: #8db8ff;
+}

@@ -65,6 +65,8 @@ const closeItemModal =
 
 let newItemType = "task";
 
+let editingItemId = null;
+
 
 // =====================================
 // SIDEBAR
@@ -180,6 +182,32 @@ const confirmDelete =
 
 let pendingDeleteItem = null;
 
+const completeModal =
+    document.getElementById(
+        "completeModal"
+    );
+
+const completeModalTitle =
+    document.getElementById(
+        "completeModalTitle"
+    );
+
+const completeMessage =
+    document.getElementById(
+        "completeMessage"
+    );
+
+const cancelComplete =
+    document.getElementById(
+        "cancelComplete"
+    );
+
+const confirmComplete =
+    document.getElementById(
+        "confirmComplete"
+    );
+
+let pendingCompleteItem = null;
 
 // =====================================
 // CONFIGURAÇÕES
@@ -1560,6 +1588,10 @@ typeReminderButton.addEventListener(
 
 function openItemModal() {
 
+    editingItemId = null;
+
+itemForm.reset();
+
     if (
         currentFilter ===
             "task" ||
@@ -1589,8 +1621,56 @@ function openItemModal() {
 
 }
 
+function openEditItemModal(item) {
+
+    editingItemId =
+        item.id;
+
+    itemTitle.value =
+        item.title;
+
+    setNewItemType(
+        item.type
+    );
+
+    if (
+        item.type === "task"
+    ) {
+
+        taskStart.value =
+            item.start;
+
+        taskDeadline.value =
+            item.deadline;
+
+    } else {
+
+        reminderDate.value =
+            item.datetime;
+
+    }
+
+    submitItemButton.textContent =
+        "Salvar alterações";
+
+    itemModal.classList.remove(
+        "hidden"
+    );
+
+    itemTitle.focus();
+
+}
 
 function closeNewItemModal() {
+
+    editingItemId = null;
+
+    itemForm.reset();
+
+    setNewItemType("task");
+
+    submitItemButton.textContent =
+        "Criar tarefa";
 
     itemModal.classList.add(
         "hidden"
@@ -2114,26 +2194,16 @@ function showItems() {
                         : "✓ Concluir";
 
 
-                completeButton.addEventListener(
-                    "click",
-                    function () {
+               completeButton.addEventListener(
+    "click",
+    function () {
 
-                        item.completed =
-                            !item.completed;
+        askComplete(
+            item
+        );
 
-
-                        saveItems();
-
-                        showItems();
-
-                        updateProgress(
-                            true
-                        );
-
-                        renderCalendar();
-
-                    }
-                );
+    }
+);
 
 
                 actions.appendChild(
@@ -2142,6 +2212,32 @@ function showItems() {
 
             }
 
+const editButton =
+    document.createElement(
+        "button"
+    );
+
+editButton.classList.add(
+    "edit-button"
+);
+
+editButton.textContent =
+    "✎ Editar";
+
+editButton.addEventListener(
+    "click",
+    function () {
+
+        openEditItemModal(
+            item
+        );
+
+    }
+);
+
+actions.appendChild(
+    editButton
+);
 
             const removeButton =
                 document.createElement(
@@ -2219,75 +2315,122 @@ itemForm.addEventListener(
 
 
         if (
-            newItemType === "task"
-        ) {
+    newItemType === "task"
+) {
 
-            if (
-                taskStart.value === "" ||
-                taskDeadline.value === ""
-            ) {
+    if (
+        taskStart.value === "" ||
+        taskDeadline.value === ""
+    ) {
 
-                showToast(
-                    "Escolha o início e o prazo da tarefa."
-                );
+        showToast(
+            "Escolha o início e o prazo da tarefa."
+        );
 
-                return;
+        return;
+    }
 
-            }
+    if (
+        new Date(taskDeadline.value) <=
+        new Date(taskStart.value)
+    ) {
 
+        showToast(
+            "O prazo deve ser depois do início."
+        );
 
-            if (
-                new Date(
-                    taskDeadline.value
-                ) <=
-                new Date(
-                    taskStart.value
-                )
-            ) {
+        return;
+    }
 
-                showToast(
-                    "O prazo deve ser depois do início."
-                );
+    if (
+        editingItemId !== null
+    ) {
 
-                return;
+        const item =
+            items.find(
+                function (item) {
+                    return item.id ===
+                        editingItemId;
+                }
+            );
 
-            }
+        if (item) {
 
+            item.type = "task";
 
-            items.push({
-                id: Date.now(),
-                type: "task",
-                title: title,
-                start: taskStart.value,
-                deadline:
-                    taskDeadline.value,
-                completed: false
-            });
+if (item.completed === undefined) {
+    item.completed = false;
+}
 
-        } else {
+            item.title = title;
+            item.start = taskStart.value;
+            item.deadline =
+                taskDeadline.value;
 
-            if (
-                reminderDate.value === ""
-            ) {
-
-                showToast(
-                    "Escolha a data e horário do lembrete."
-                );
-
-                return;
-
-            }
-
-
-            items.push({
-                id: Date.now(),
-                type: "reminder",
-                title: title,
-                datetime:
-                    reminderDate.value
-            });
-
+            delete item.datetime;
         }
+
+    } else {
+
+        items.push({
+            id: Date.now(),
+            type: "task",
+            title: title,
+            start: taskStart.value,
+            deadline:
+                taskDeadline.value,
+            completed: false
+        });
+    }
+
+} else {
+
+    if (
+        reminderDate.value === ""
+    ) {
+
+        showToast(
+            "Escolha a data e horário do lembrete."
+        );
+
+        return;
+    }
+
+    if (
+        editingItemId !== null
+    ) {
+
+        const item =
+            items.find(
+                function (item) {
+                    return item.id ===
+                        editingItemId;
+                }
+            );
+
+        if (item) {
+
+            item.type = "reminder";
+            item.title = title;
+            item.datetime =
+                reminderDate.value;
+
+            delete item.start;
+            delete item.deadline;
+            delete item.completed;
+        }
+
+    } else {
+
+        items.push({
+            id: Date.now(),
+            type: "reminder",
+            title: title,
+            datetime:
+                reminderDate.value
+        });
+    }
+}
 
 
         saveItems();
@@ -2408,6 +2551,111 @@ confirmDelete.addEventListener(
     }
 );
 
+// =====================================
+// CONFIRMAR CONCLUSÃO
+// =====================================
+
+function askComplete(item) {
+
+    pendingCompleteItem =
+        item;
+
+    if (
+        item.completed
+    ) {
+
+        completeModalTitle.textContent =
+            "Reabrir tarefa?";
+
+        completeMessage.textContent =
+            'Deseja realmente reabrir a tarefa "' +
+            item.title +
+            '"?';
+
+        confirmComplete.textContent =
+            "Sim, reabrir";
+
+    } else {
+
+        completeModalTitle.textContent =
+            "Concluir tarefa?";
+
+        completeMessage.textContent =
+            'Deseja realmente marcar a tarefa "' +
+            item.title +
+            '" como concluída?';
+
+        confirmComplete.textContent =
+            "Sim, concluir";
+    }
+
+    completeModal.classList.remove(
+        "hidden"
+    );
+}
+
+
+function closeCompleteModal() {
+
+    pendingCompleteItem =
+        null;
+
+    completeModal.classList.add(
+        "hidden"
+    );
+}
+
+
+cancelComplete.addEventListener(
+    "click",
+    closeCompleteModal
+);
+
+
+confirmComplete.addEventListener(
+    "click",
+    function () {
+
+        if (
+            !pendingCompleteItem
+        ) {
+
+            return;
+        }
+
+        pendingCompleteItem.completed =
+            !pendingCompleteItem.completed;
+
+        saveItems();
+
+        closeCompleteModal();
+
+        showItems();
+
+        updateProgress(
+            true
+        );
+
+        renderCalendar();
+
+    }
+);
+
+
+completeModal.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target ===
+            completeModal
+        ) {
+
+            closeCompleteModal();
+        }
+
+    }
+);
 
 // =====================================
 // PROGRESSO
@@ -2576,7 +2824,7 @@ const colors =
 
     for (
         let i = 0;
-        i < 30;
+        i < 100;
         i++
     ) {
 
