@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Entrar | Volpine</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+</head>
+
+<body class="auth-page">
+
+    <main class="auth-container">
+
+        <section class="auth-card">
+
+            <div class="auth-brand">
+                <h1>Volpine</h1>
+
+                <p>
+                    organize your day.
+                </p>
+            </div>
+
+            <div class="auth-header">
+
+                <h2 id="authTitle">
+                    Bem-vindo de volta
+                </h2>
+
+                <p id="authDescription">
+                    Entre na sua conta para continuar.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                class="google-login-button"
+                id="googleLoginButton"
+            >
+                <img
+                    class="google-icon"
+                    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                    alt=""
+                    >
+
+                Continuar com Google
+            </button>
+
+            <div class="auth-divider">
+                <span>ou</span>
+            </div>
+
+            <form id="authForm">
+
+                <div
+                    class="auth-field hidden"
+                    id="authNameField"
+                >
+                    <label for="authName">
+                        Nome
+                    </label>
+
+                    <input
+                        type="text"
+                        id="authName"
+                        placeholder="Como podemos te chamar?"
+                        autocomplete="name"
+                    >
+                </div>
+
+                <div class="auth-field">
+                    <label for="authEmail">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="authEmail"
+                        placeholder="seuemail@exemplo.com"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="auth-field">
+                    <label for="authPassword">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="authPassword"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button
+                    type="button"
+                    class="forgot-password-button"
+                    id="forgotPasswordButton"
+                >
+                    Esqueci minha senha
+                </button>
+
+                <button
+                    type="submit"
+                    class="auth-submit-button"
+                    id="authSubmitButton"
+                >
+                    Entrar
+                </button>
+
+            </form>
+
+            <p class="auth-switch-text">
+
+                <span id="authSwitchMessage">
+                    Ainda não tem uma conta?
+                </span>
+
+                <button
+                    type="button"
+                    id="authSwitchButton"
+                    class="auth-switch-button"
+                >
+                    Criar conta
+                </button>
+
+            </p>
+
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+
+</body>
+
+</html>

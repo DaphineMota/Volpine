@@ -1,3 +1,72 @@
+async function checkAuthSession() {
+
+    const {
+        data: { session },
+        error
+    } = await supabaseClient.auth.getSession();
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao verificar sessão:",
+            error
+        );
+
+        return;
+    }
+
+
+    if (!session) {
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
+
+    const user =
+    session.user;
+
+
+const userName =
+    user.user_metadata?.name ||
+    user.user_metadata?.full_name ||
+    "Usuário";
+
+
+const userEmail =
+    user.email || "";
+
+
+console.log(
+    "Usuário conectado:",
+    userEmail
+);
+
+
+const headerProfileName =
+    document.querySelector(".profile-info strong");
+
+const headerProfileStatus =
+    document.querySelector(".profile-info span");
+
+
+if (headerProfileName) {
+    headerProfileName.textContent =
+        userName;
+}
+
+
+if (headerProfileStatus) {
+    headerProfileStatus.textContent =
+        userEmail;
+}
+
+}
+
+checkAuthSession();
+
 const APP_VERSION = "1.0.0";
 
 
