@@ -109,6 +109,26 @@ const agendaSection =
 
 const filterButtons =
     document.querySelectorAll(".filter-button");
+const changePasswordModal =
+    document.getElementById("changePasswordModal");
+
+const changePasswordForm =
+    document.getElementById("changePasswordForm");
+
+const accountNewPassword =
+    document.getElementById("accountNewPassword");
+
+const accountConfirmPassword =
+    document.getElementById("accountConfirmPassword");
+
+const changePasswordMessage =
+    document.getElementById("changePasswordMessage");
+
+const cancelChangePassword =
+    document.getElementById("cancelChangePassword");
+
+const saveNewPassword =
+    document.getElementById("saveNewPassword");
 
 let currentFilter = "all";
 
@@ -275,6 +295,8 @@ const confirmComplete =
     document.getElementById(
         "confirmComplete"
     );
+
+let completeModalAction = "task";
 
 let pendingCompleteItem = null;
 
@@ -1494,19 +1516,187 @@ function authComingSoon() {
 
 changePasswordButton.addEventListener(
     "click",
-    authComingSoon
+    function () {
+
+        changePasswordForm.reset();
+
+        changePasswordMessage.classList.add(
+            "hidden"
+        );
+
+        changePasswordModal.classList.remove(
+            "hidden"
+        );
+
+        accountNewPassword.focus();
+
+    }
 );
 
+cancelChangePassword.addEventListener(
+    "click",
+    function () {
+
+        changePasswordModal.classList.add(
+            "hidden"
+        );
+
+        changePasswordForm.reset();
+
+        changePasswordMessage.classList.add(
+            "hidden"
+        );
+
+    }
+);
+
+
+changePasswordForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+
+        const password =
+            accountNewPassword.value;
+
+        const confirmation =
+            accountConfirmPassword.value;
+
+
+        if (password.length < 6) {
+
+            changePasswordMessage.className =
+                "auth-message error";
+
+            changePasswordMessage.innerHTML = `
+                <strong>Senha muito curta.</strong>
+                <span>
+                    Use pelo menos 6 caracteres.
+                </span>
+            `;
+
+            return;
+        }
+
+
+        if (password !== confirmation) {
+
+            changePasswordMessage.className =
+                "auth-message error";
+
+            changePasswordMessage.innerHTML = `
+                <strong>As senhas não coincidem.</strong>
+                <span>
+                    Digite a mesma senha nos dois campos.
+                </span>
+            `;
+
+            return;
+        }
+
+
+        saveNewPassword.disabled = true;
+        saveNewPassword.textContent =
+            "Salvando...";
+
+
+        const { error } =
+            await supabaseClient.auth.updateUser({
+                password: password
+            });
+
+
+        saveNewPassword.disabled = false;
+        saveNewPassword.textContent =
+            "Salvar senha";
+
+
+        if (error) {
+
+            changePasswordMessage.className =
+                "auth-message error";
+
+            changePasswordMessage.innerHTML = `
+                <strong>Não foi possível alterar a senha.</strong>
+                <span>
+                    ${error.message}
+                </span>
+            `;
+
+            return;
+        }
+
+
+        changePasswordMessage.className =
+            "auth-message success";
+
+        changePasswordMessage.innerHTML = `
+            <strong>✓ Senha alterada!</strong>
+            <span>
+                Sua nova senha foi salva com sucesso.
+            </span>
+        `;
+
+
+        changePasswordForm.reset();
+
+    }
+);
 
 switchAccountButton.addEventListener(
     "click",
-    authComingSoon
-);
+    function () {
 
+        completeModalAction =
+            "coming-soon";
+
+
+        completeModalTitle.textContent =
+            "Recurso em desenvolvimento";
+
+
+        completeMessage.textContent =
+            "A troca rápida entre contas estará disponível em uma próxima atualização do Volpine.";
+
+
+        confirmComplete.textContent =
+            "Entendi";
+
+
+        completeModal.classList.remove(
+            "hidden"
+        );
+
+    }
+);
 
 logoutButton.addEventListener(
     "click",
-    authComingSoon
+    function () {
+
+        completeModalAction =
+            "logout";
+
+
+        completeModalTitle.textContent =
+            "Sair da conta?";
+
+
+        completeMessage.textContent =
+            "Tem certeza de que deseja sair da sua conta?";
+
+
+        confirmComplete.textContent =
+            "Sim, sair";
+
+
+        completeModal.classList.remove(
+            "hidden"
+        );
+
+    }
 );
 
 
@@ -2626,6 +2816,8 @@ confirmDelete.addEventListener(
 
 function askComplete(item) {
 
+completeModalAction = "task";
+
     pendingCompleteItem =
         item;
 
@@ -2677,13 +2869,59 @@ function closeCompleteModal() {
 
 cancelComplete.addEventListener(
     "click",
-    closeCompleteModal
+    function () {
+
+        closeCompleteModal();
+completeModal.classList.add(
+        "hidden"
+    );
+
+    pendingCompleteItem = null;
+        completeModalAction = "task";
+
+    }
 );
 
 
 confirmComplete.addEventListener(
     "click",
-    function () {
+    async function () {
+
+        if (
+            completeModalAction === "coming-soon"
+        ) {
+
+            closeCompleteModal();
+
+            return;
+        }
+
+        if (
+    completeModalAction === "logout" ||
+    completeModalAction === "switch-account"
+) {
+
+            const { error } =
+                await supabaseClient.auth.signOut();
+
+
+            if (error) {
+
+                console.error(
+                    "Erro ao sair da conta:",
+                    error
+                );
+
+                return;
+            }
+
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
 
         if (
             !pendingCompleteItem
@@ -2691,6 +2929,7 @@ confirmComplete.addEventListener(
 
             return;
         }
+
 
         pendingCompleteItem.completed =
             !pendingCompleteItem.completed;
@@ -2709,7 +2948,6 @@ confirmComplete.addEventListener(
 
     }
 );
-
 
 completeModal.addEventListener(
     "click",

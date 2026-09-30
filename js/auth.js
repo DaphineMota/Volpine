@@ -303,31 +303,58 @@ authForm.addEventListener(
 
         if (error) {
 
-           authMessage.classList.remove(
-    "hidden",
-    "success"
-);
-
-authMessage.classList.add(
-    "error"
-);
-
-authMessage.innerHTML = `
-    <strong>Não foi possível entrar.</strong>
-
-    <span>
-        ${error.message}
-    </span>
-`;
-
             authSubmitButton.disabled = false;
             authSubmitButton.textContent = "Entrar";
+
+
+            let errorMessage =
+                "Não foi possível entrar na sua conta.";
+
+
+            if (
+                error.message === "Invalid login credentials"
+            ) {
+
+                errorMessage =
+                    "E-mail ou senha incorretos.";
+
+            }
+
+
+            if (authMessage) {
+
+                authMessage.classList.remove(
+                    "hidden",
+                    "success"
+                );
+
+                authMessage.classList.add(
+                    "error"
+                );
+
+                authMessage.innerHTML = `
+                    <strong>Não foi possível entrar.</strong>
+
+                    <span>
+                        ${errorMessage}
+                    </span>
+                `;
+
+            } else {
+
+                console.error(
+                    "Elemento authMessage não encontrado."
+                );
+
+            }
+
 
             return;
         }
 
 
-        window.location.href = "index.html";
+        window.location.href =
+            "index.html";
 
     }
 );

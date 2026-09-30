@@ -1195,6 +1195,84 @@
 
 </div>
 
+<!-- ALTERAR SENHA -->
+
+<div
+    id="changePasswordModal"
+    class="modal hidden"
+>
+    <div class="modal-box confirm-box">
+
+        <div class="delete-symbol">
+            🔒
+        </div>
+
+        <h2>
+            Alterar senha
+        </h2>
+
+        <p>
+            Digite a nova senha que deseja usar na sua conta.
+        </p>
+
+        <form id="changePasswordForm">
+
+            <div class="auth-field">
+                <label for="accountNewPassword">
+                    Nova senha
+                </label>
+
+                <input
+                    type="password"
+                    id="accountNewPassword"
+                    placeholder="Digite sua nova senha"
+                    autocomplete="new-password"
+                    required
+                >
+            </div>
+
+            <div class="auth-field">
+                <label for="accountConfirmPassword">
+                    Confirmar nova senha
+                </label>
+
+                <input
+                    type="password"
+                    id="accountConfirmPassword"
+                    placeholder="Digite novamente"
+                    autocomplete="new-password"
+                    required
+                >
+            </div>
+
+            <div
+                id="changePasswordMessage"
+                class="auth-message hidden"
+            ></div>
+
+            <div class="confirm-actions">
+                <button
+                    id="cancelChangePassword"
+                    class="secondary-button"
+                    type="button"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    id="saveNewPassword"
+                    class="confirm-complete-button"
+                    type="submit"
+                >
+                    Salvar senha
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
     <!-- TOAST -->
 
     <div
