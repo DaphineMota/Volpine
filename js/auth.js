@@ -1,3 +1,6 @@
+const authMessage =
+    document.getElementById("authMessage");
+    
 const authTitle =
     document.getElementById("authTitle");
 
@@ -153,18 +156,44 @@ forgotPasswordButton.addEventListener(
 
         if (error) {
 
-            alert(
-                "Não foi possível enviar o e-mail: " +
-                error.message
-            );
+            authMessage.classList.remove(
+    "hidden",
+    "success"
+);
+
+authMessage.classList.add(
+    "error"
+);
+
+authMessage.innerHTML = `
+    <strong>Não foi possível enviar o e-mail.</strong>
+
+    <span>
+        ${error.message}
+    </span>
+`;
 
             return;
         }
 
 
-        alert(
-            "Enviamos um link de recuperação para o seu e-mail."
-        );
+       authMessage.classList.remove(
+    "hidden",
+    "error"
+);
+
+authMessage.classList.add(
+    "success"
+);
+
+authMessage.innerHTML = `
+    <strong>✓ E-mail enviado!</strong>
+
+    <span>
+        Enviamos um link para redefinir sua senha.
+        Verifique também sua caixa de spam.
+    </span>
+`;
 
     }
 );
@@ -207,10 +236,22 @@ authForm.addEventListener(
 
             if (error) {
 
-                alert(
-                    "Não foi possível criar sua conta: " +
-                    error.message
+                authMessage.classList.remove(
+                    "hidden",
+                    "success"
                 );
+
+                authMessage.classList.add(
+                    "error"
+                );
+
+                authMessage.innerHTML = `
+                    <strong>Não foi possível criar sua conta.</strong>
+
+                <span>
+                  ${error.message}
+                </span>
+`;
 
                 authSubmitButton.disabled = false;
                 authSubmitButton.textContent = "Criar conta";
@@ -219,9 +260,24 @@ authForm.addEventListener(
             }
 
 
-            alert(
-                "Conta criada! Confira seu e-mail para confirmar o cadastro."
-            );
+            
+        authMessage.classList.remove(
+            "hidden",
+            "error"
+        );
+
+        authMessage.classList.add(
+    "success"
+        );
+
+        authMessage.innerHTML = `
+            <strong>✓ Conta criada!</strong>
+
+        <span>
+            Enviamos um link de confirmação para o seu e-mail.
+            Confirme seu cadastro antes de entrar.
+        </span>
+`;
 
 
             authMode = "login";
@@ -247,10 +303,22 @@ authForm.addEventListener(
 
         if (error) {
 
-            alert(
-                "Não foi possível entrar: " +
-                error.message
-            );
+           authMessage.classList.remove(
+    "hidden",
+    "success"
+);
+
+authMessage.classList.add(
+    "error"
+);
+
+authMessage.innerHTML = `
+    <strong>Não foi possível entrar.</strong>
+
+    <span>
+        ${error.message}
+    </span>
+`;
 
             authSubmitButton.disabled = false;
             authSubmitButton.textContent = "Entrar";

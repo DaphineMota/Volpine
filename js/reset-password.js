@@ -71,16 +71,24 @@ resetPasswordForm.addEventListener(
         }
 
 
-        alert(
-            "Senha alterada com sucesso!"
-        );
+       await supabaseClient.auth.signOut();
 
 
-        await supabaseClient.auth.signOut();
+resetPasswordForm.innerHTML = `
+    <div class="reset-success">
+        <div class="reset-success-icon">
+            ✓
+        </div>
 
+        <h3>Senha alterada!</h3>
 
-        window.location.href =
-            "login.html";
+        <p>
+            Sua nova senha foi salva com sucesso.
+            Você já pode fechar esta página e voltar
+            para a tela de login do Volpine.
+        </p>
+    </div>
+`;
 
     }
 );
