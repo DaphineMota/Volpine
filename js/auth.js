@@ -1,6 +1,9 @@
 const authMessage =
     document.getElementById("authMessage");
-    
+
+const googleLoginButton =
+    document.getElementById("googleLoginButton");
+
 const authTitle =
     document.getElementById("authTitle");
 
@@ -195,6 +198,100 @@ authMessage.innerHTML = `
     </span>
 `;
 
+    }
+);
+
+googleLoginButton.addEventListener(
+    "click",
+    async function () {
+
+        googleLoginButton.disabled = true;
+
+        const { error } =
+            await supabaseClient.auth
+                .signInWithOAuth({
+                    provider: "google",
+                    options: {
+                        redirectTo:
+                            "https://daphinemota.github.io/Volpine/"
+                    }
+                });
+
+        if (error) {
+
+            googleLoginButton.disabled = false;
+
+            if (authMessage) {
+                authMessage.classList.remove(
+                    "hidden",
+                    "success"
+                );
+
+                authMessage.classList.add(
+                    "error"
+                );
+
+                authMessage.innerHTML = `
+                    <strong>
+                        Não foi possível entrar com Google.
+                    </strong>
+                    <span>
+                        Tente novamente.
+                    </span>
+                `;
+            }
+
+            console.error(
+                "Erro no login Google:",
+                error
+            );
+        }
+    }
+);
+
+googleLoginButton.addEventListener(
+    "click",
+    async function () {
+
+        googleLoginButton.disabled = true;
+
+        const { error } =
+            await supabaseClient.auth
+                .signInWithOAuth({
+                    provider: "google",
+                    options: {
+                        redirectTo:
+                            "https://daphinemota.github.io/Volpine/"
+                    }
+                });
+
+        if (error) {
+
+            googleLoginButton.disabled = false;
+
+            authMessage.classList.remove(
+                "hidden",
+                "success"
+            );
+
+            authMessage.classList.add(
+                "error"
+            );
+
+            authMessage.innerHTML = `
+                <strong>
+                    Não foi possível entrar com Google.
+                </strong>
+                <span>
+                    Tente novamente.
+                </span>
+            `;
+
+            console.error(
+                "Erro no login Google:",
+                error
+            );
+        }
     }
 );
 
