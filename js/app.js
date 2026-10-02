@@ -38,6 +38,19 @@ const userName =
 const userEmail =
     user.email || "";
 
+    const accountName =
+    document.getElementById("accountName");
+
+const accountEmail =
+    document.getElementById("accountEmail");
+
+if (accountName) {
+    accountName.textContent = userName;
+}
+
+if (accountEmail) {
+    accountEmail.textContent = userEmail;
+}
 
 console.log(
     "Usuário conectado:",
@@ -571,6 +584,9 @@ const profileName =
 
 const profileUsername =
     document.getElementById("profileUsername");
+
+const profileEmail =
+    document.getElementById("profileEmail");
 
 const saveProfile =
     document.getElementById("saveProfile");

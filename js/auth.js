@@ -221,17 +221,18 @@ authForm.addEventListener(
             authSubmitButton.textContent = "Criando conta...";
 
 
-            const { data, error } =
-                await supabaseClient.auth.signUp({
-                    email: email,
-                    password: password,
-
-                    options: {
-                        data: {
-                            name: name
-                        }
-                    }
-                });
+           const { data, error } =
+    await supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+            data: {
+                name
+            },
+            emailRedirectTo:
+                "https://daphinemota.github.io/Volpine/"
+        }
+    });
 
 
             if (error) {
